@@ -1,8 +1,21 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+''' pcoc_continuous_converge:
+
+This is a wrapper for pcoc_det.py that attempts to adapt the method for continuous traits.
+
+Usage: pcoc_continuous_converge.py -t <treefile> -o <outputdir> -c <traittable.txt>
+
+Format for the trait table is:
+
+XXXXXX
+
+
+'''
+
 #  pcoc_cont_scenarios.py
 #
 #  This is a wrapper for pcoc_det.py that attempts to adapt the method for continuous traits.
-#  Because PCOC requires and old version of Bpp, it is recommended that this be run in an appropriate Docker container.
+#  Because PCOC requires an old version of Bpp, it is recommended that this be run in an appropriate Docker container.
 #
 #  If you need to recreate this container:
 #  Download the PCOC docker image: docker pull carinerey/pcoc
@@ -55,7 +68,6 @@ startDateTime = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 ### Option defining
 parser = argparse.ArgumentParser(prog="pcoc_num_tree.py", description='')
 parser.add_argument('--version', action='version', version='%(prog)s 1.0')
-
 ##############
 requiredOptions = parser.add_argument_group('Required arguments')
 requiredOptions.add_argument('-t', "--tree", type=str, help='input tree name', required=True)
@@ -158,7 +170,7 @@ def discretize(nodeTraits, precision):
 
     for cutoff in np.unique(cutoffs):
         if not args.float: # round the cutoff to int
-            opColumn = "trait_cutoff_" + str(int(cutoff))
+            opColumn = "trait_cutoff_" + str(int(round(cutoff)))
         else: # keep it floating
             opColumn = "trait_cutoff_" + str(cutoff)
         binDF[opColumn] = pd.cut(binDF["trait_cont"], [min(nodeTraits)]+[cutoff]+[max(nodeTraits)], include_lowest=True, labels=False)
