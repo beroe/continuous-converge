@@ -2,7 +2,7 @@
 #  pcoc_cont_scenarios.py
 #
 #  This is a wrapper for pcoc_det.py that attempts to adapt the method for continuous traits.
-#  Because PCOC requires and old version of Bpp, it is recommended that this be run in an appropriate Docker container.
+#  Because PCOC requires an old version of Bpp, it is recommended that this be run in an appropriate Docker container.
 #
 #  If you need to recreate this container:
 #  Download the PCOC docker image: docker pull carinerey/pcoc
